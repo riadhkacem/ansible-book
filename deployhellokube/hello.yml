@@ -5,6 +5,6 @@ metadata:
 spec:
   containers:
   - name: hello-world
-    image: riadhkacem/hello-wold-python:latest
+    image: riadhkacem/hello-world-python:latest
     ports:
     - containerPort: 8080
