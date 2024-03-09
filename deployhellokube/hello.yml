@@ -1,6 +1,10 @@
 apiVersion: v1
 kind: Pod
+<<<<<<< HEAD
 meta-data:
+=======
+metadata:
+>>>>>>> 7dfaad4 (add hello pod)
   name: hello-world
 spec:
   containers:
