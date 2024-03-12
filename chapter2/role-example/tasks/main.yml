@@ -1,0 +1,5 @@
+---
+# tasks file for role-example
+- name: print hello message
+  ansible.builtin.debug:
+    msg: "hello Riadh"

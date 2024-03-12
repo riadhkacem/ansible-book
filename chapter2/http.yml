@@ -1,0 +1,15 @@
+---
+- name: http
+  hosts: all
+  become: true
+  tasks:
+    - name: lastest package
+      ansible.builtin.yum:
+        state: latest
+        name:
+          - httpd
+      notify: httpd update  
+  handlers:
+    - name: httpd update
+      ansible.builtin.debug:
+        msg: 'httpd service updated'

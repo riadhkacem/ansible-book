@@ -1,0 +1,24 @@
+---
+- name: Hello
+  hosts: all
+  gather_facts: false
+  vars:
+    nom: "riadh"
+    sold: true
+    cars:
+      bmw:
+        color: yellow
+        fuel: gasoil
+      tesla:
+        color: blue
+        fuel: electric
+    tools:
+      - key: iac
+        value: terraform
+      - key: microservice
+        value: docker
+  tasks:
+    - name: Hello task
+      ansible.builtin.debug:
+        msg: "Hi {{ nom }}! > your car fuel is {{ cars.bmw.fuel }} > the ansible version is {{ ansible_version }}"
+      when: sold
