@@ -1,0 +1,46 @@
+---
+- name: deploy http server debian on container
+  hosts: all
+  become: true
+  vars:
+    webroot: /webroot/
+  tasks:
+    - name: instal python dependencies
+      ansible.builtin.apt:
+        name:
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+    - name: instal docker module for python
+      ansible.builtin.pip:
+        name:
+          - docker #
+        state: latest #
+    - name: pull httpd docker image
+      community.docker.docker_image:
+        name: httpd
+        source: pull
+        tag: latest
+    - name: create document root
+      ansible.builtin.file:
+        path: "{{ webroot }}"
+        state: directory
+    - name: create index.html
+      ansible.builtin.copy:
+        dest: "{{ webroot }}index.html"
+        content: Hello world
+    - name: run the httpd server
+      community.docker.docker_container:
+        name: webserver
+        exposed_ports:
+          - 80
+        ports:
+          - 8080:80
+        image: httpd
+        state: started
+        detach: true
+        volumes:
+          - "{{webroot}}" #
+          - /usr/local/apache2/htdocs/ #

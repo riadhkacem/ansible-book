@@ -1,3 +1,5 @@
 ---
 collections:
-  - name: community.aws
+#  - name: community.aws
+  - name: cloud.common
+  - name: kubernetes.core

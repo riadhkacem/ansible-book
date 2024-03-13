@@ -1,2 +1,11 @@
 chapter1/hellopython/venv/*
 chapter2/venv/*
+chapter2/execution-environment/artifacts/*
+chapter2/execution-environment/context/*
+chapter2/execution-environment/context.bkp/*
+chapter2/context/*
+chapter2/execution-environment/context/*
+chapter2/execution-environment/context/Dockerfile
+chapter2/execution-environment/context/_build/bindep.txt
+chapter2/execution-environment/context/_build/requirements.txt
+chapter2/execution-environment/context/_build/requirements.yml

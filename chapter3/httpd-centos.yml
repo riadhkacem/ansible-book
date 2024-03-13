@@ -1,0 +1,42 @@
+---
+- name: deploy http server centos on container
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    webroot: /webroot
+  tasks:
+    - name: podman installed
+      ansible.builtin.yum:
+        name: podman
+        state: latest
+    - name: pull httpd podamn image
+      containers.podman.podman_image:
+        name: docker.io/library/httpd
+        pull: true
+        tag: latest
+    - name: webroot present
+      ansible.builtin.file:
+        path: "{{ webroot }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0777"
+        setype: "container_share_t"
+    - name: create index.html
+      ansible.builtin.copy:
+        dest: "{{ webroot }}/index.html"
+        content: Hello Riadh!
+        setype: "container_share_t"
+    - name: run the httpd server
+      containers.podman.podman_container:
+        name: webserver
+        exposed_ports:
+          - 80
+        ports:
+          - 8080:80
+        image: httpd
+        state: started
+        detach: true
+        volumes:
+          - "{{webroot}}:/usr/local/apache2/htdocs/:exec"
